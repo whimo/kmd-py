@@ -62,13 +62,13 @@ def KMD(X, Y, M=None, Knn=1, Kernel="discrete"):
     else:
         U_stats = (n_i.T @ Kernel @ n_i - np.sum(np.diag(Kernel) * n_i)) / n / (n - 1)
     
+    def node_calculator(j):
+        return np.sum(Kernel[Y[j] - 1, Y[nn_index_X[j, :] - 1]])
+
     if discrete_kernel:
         mean_Kii = 1
     else:
         mean_Kii = np.sum(np.diag(Kernel) * n_i) / n
-    
-        def node_calculator(j):
-            return np.sum(Kernel[Y[j] - 1, Y[nn_index_X[j, :] - 1]])
     
     return (np.mean([node_calculator(j) for j in range(n)]) / Knn - U_stats) / (mean_Kii - U_stats)
 
