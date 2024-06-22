@@ -3,6 +3,9 @@ from sklearn.neighbors import NearestNeighbors
 import random
 
 def get_neighbors(X, Knn):
+    if Knn >= X.shape[0]:
+        raise ValueError("Knn must be less than the number of data points.")
+        
     if not isinstance(X, np.ndarray):
         X = np.array(X)
     
