@@ -6,7 +6,7 @@ from get_neighbors import get_neighbors
 numpy2ri.activate()
 
 # Load the R script
-r.source('KMD/R/KMD.R')
+r.source('../KMD/R/KMD.R')
 
 # Generate some test data
 np.random.seed(1)
