@@ -26,4 +26,6 @@ KMD_test_r_result = KMD_test_r(X, Y, M=3, Knn=1, Kernel="discrete")
 print("R output:\n", KMD_test_r_result)
 print("Python output:\n", KMD_test_py_result)
 print("Difference:\n", np.abs(KMD_test_r_result - KMD_test_py_result))
-assert np.allclose(KMD_test_r_result, KMD_test_py_result, atol=1e-6), f"The Python output does not match the R output. Difference: {np.abs(KMD_test_r_result - KMD_test_py_result)}"
+assert np.allclose(
+    KMD_test_r_result, KMD_test_py_result, atol=1e-6
+), f"The Python output does not match the R output. Difference: {np.abs(KMD_test_r_result - KMD_test_py_result)}"

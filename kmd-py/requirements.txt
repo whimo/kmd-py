@@ -1,5 +1,5 @@
-numpy==1.21.0
+numpy<2
 scikit-learn
 rpy2
 python-igraph
-mlpack==3.4.2
+mlpack
