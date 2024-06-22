@@ -3,6 +3,7 @@ from get_neighbors import get_neighbors
 from KMD_MST import KMD_MST
 import mlpack
 import igraph
+from scipy.stats import norm
 
 def KMD_test(X, Y, M=None, Knn=None, Kernel="discrete", Permutation=True, B=500):
     if M is None:
