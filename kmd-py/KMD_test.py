@@ -93,7 +93,9 @@ def KMD_test(X, Y, M=None, Knn=None, Kernel="discrete", Permutation=True, B=500)
         from sklearn.utils import resample
         b = [Perm_stat(Y, resample(np.arange(n))) for _ in range(B)]
         b_t0 = Perm_stat(Y, np.arange(n))
-        return (np.sum(np.array(b) >= b_t0) + 1) / (B + 1), b_t0
+        p_value = (np.sum(np.array(b) >= b_t0) + 1) / (B + 1)
+        print(f"Permutation p-value: {p_value}, b_t0: {b_t0}")
+        return p_value, b_t0
 
     if n < 4:
         raise ValueError("At least 4 observations are needed for the asymptotic test.")
@@ -195,5 +197,6 @@ def KMD_test(X, Y, M=None, Knn=None, Kernel="discrete", Permutation=True, B=500)
         U_stats = (np.dot(n_i.T, np.dot(Kernel, n_i)) - np.sum(np.diag(Kernel) * n_i)) / n / (n - 1)
 
     Output = (First_term_in_numerator - U_stats) * np.sqrt(n / Sn)
+    print(f"First_term_in_numerator: {First_term_in_numerator}, U_stats: {U_stats}, Sn: {Sn}, Output: {Output}")
     p_value = 1 - norm.cdf(Output)
     return np.array([Output, p_value])
