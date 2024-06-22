@@ -198,5 +198,6 @@ def KMD_test(X, Y, M=None, Knn=None, Kernel="discrete", Permutation=True, B=500)
 
     Output = (First_term_in_numerator - U_stats) * np.sqrt(n / Sn)
     print(f"First_term_in_numerator: {First_term_in_numerator}, U_stats: {U_stats}, Sn: {Sn}, Output: {Output}")
+    print(f"First_term_in_numerator: {First_term_in_numerator}, U_stats: {U_stats}, Sn: {Sn}, Output: {Output}")
     p_value = 1 - norm.cdf(Output)
     return np.array([Output, p_value])
