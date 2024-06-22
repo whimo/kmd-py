@@ -43,6 +43,14 @@ def KMD(X, Y, M=None, Knn=1, Kernel="discrete"):
                     return np.concatenate((id_small, id_equal + (id_equal >= i)))
                 if len(id_equal) > 1:
                     return np.concatenate((id_small, np.random.choice(id_equal + (id_equal >= i), Knn - len(id_small), replace=False)))
+                tie_dist = np.partition(X[i, :], Knn)[Knn]
+                id_small = np.where(X[i, :] < tie_dist)[0]
+                id_small = id_small + (id_small >= i)
+                id_equal = np.where(X[i, :] == tie_dist)[0]
+                if len(id_equal) == 1:
+                    return np.concatenate((id_small, id_equal + (id_equal >= i)))
+                if len(id_equal) > 1:
+                    return np.concatenate((id_small, np.random.choice(id_equal + (id_equal >= i), Knn - len(id_small), replace=False)))
             nn_index_X = np.array([node_neighbors(i) for i in range(n)])
         else:
             nn_index_X = get_neighbors(X, Knn)
@@ -59,10 +67,9 @@ def KMD(X, Y, M=None, Knn=1, Kernel="discrete"):
     else:
         mean_Kii = np.sum(np.diag(Kernel) * n_i) / n
     
-    def node_calculator(j):
+        def node_calculator(j):
+            return np.sum(Kernel[Y[j] - 1, Y[nn_index_X[j, :] - 1]])
         return np.sum(Kernel[Y[j] - 1, Y[nn_index_X[j, :]] - 1])
     
     return (np.mean([node_calculator(j) for j in range(n)]) / Knn - U_stats) / (mean_Kii - U_stats)
 
-def node_calculator(j):
-    return np.sum(Kernel[Y[j] - 1, Y[nn_index_X[j, :] - 1]])
