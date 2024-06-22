@@ -24,3 +24,4 @@ nn_index_X_py = get_neighbors(X, Knn)
 print("R output:\n", nn_index_X_r)
 print("Python output:\n", nn_index_X_py)
 print("Difference:\n", nn_index_X_r - nn_index_X_py)
+assert np.array_equal(nn_index_X_r, nn_index_X_py), "The Python output does not match the R output."

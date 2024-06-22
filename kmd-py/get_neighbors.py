@@ -52,4 +52,4 @@ def get_neighbors(X, Knn):
                 id_equal = id_equal + (id_equal >= i)
                 nn_index_X[i, len(id_small):Knn] = id_equal
 
-    return nn_index_X
+    return nn_index_X + 1
