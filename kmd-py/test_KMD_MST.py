@@ -5,7 +5,8 @@ from KMD_MST import KMD_MST
 # Activate the numpy to R conversion
 numpy2ri.activate()
 
-# Load the R script
+# Clear the R environment and load the R script
+r('rm(list = ls())')
 r.source('../KMD/R/KMD.R')
 
 # Generate some test data
