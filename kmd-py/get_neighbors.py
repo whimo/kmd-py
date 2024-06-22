@@ -25,7 +25,7 @@ def get_neighbors(X, Knn):
                 else:
                     nn_index_X[i, :] = random.sample([x for x in group_indices if x != i], Knn)
             else:
-                if distances[i, Knn + 1] < distances[i, Knn + 2]:
+                if distances.shape[1] > Knn + 2 and distances[i, Knn + 1] < distances[i, Knn + 2]:
                     nn_index_X[i, :] = [x for x in indices[i, 1:(Knn + 2)] if x != i]
                 else:
                     dist_matrix = np.linalg.norm(X[i, :] - X, axis=1)
@@ -37,18 +37,19 @@ def get_neighbors(X, Knn):
                     id_equal = id_equal + (id_equal >= i)
                     nn_index_X[i, len(id_small):Knn] = id_equal
 
-    ties = np.where(distances[:, Knn + 1] == distances[:, Knn + 2])[0]
-    ties = np.setdiff1d(ties, repeat_data)
-    if len(ties) > 0:
-        for i in ties:
-            dist_matrix = np.linalg.norm(X[i, :] - X, axis=1)
-            tie_dist = np.partition(dist_matrix, Knn)[Knn]
-            id_small = np.where(dist_matrix < tie_dist)[0]
-            if len(id_small) > 0:
-                id_small = id_small + (id_small >= i)
-                nn_index_X[i, :len(id_small)] = id_small
-            id_equal = random.sample(list(np.where(dist_matrix == tie_dist)[0]), Knn - len(id_small))
-            id_equal = id_equal + (id_equal >= i)
-            nn_index_X[i, len(id_small):Knn] = id_equal
+    if distances.shape[1] > Knn + 2:
+        ties = np.where(distances[:, Knn + 1] == distances[:, Knn + 2])[0]
+        ties = np.setdiff1d(ties, repeat_data)
+        if len(ties) > 0:
+            for i in ties:
+                dist_matrix = np.linalg.norm(X[i, :] - X, axis=1)
+                tie_dist = np.partition(dist_matrix, Knn)[Knn]
+                id_small = np.where(dist_matrix < tie_dist)[0]
+                if len(id_small) > 0:
+                    id_small = id_small + (id_small >= i)
+                    nn_index_X[i, :len(id_small)] = id_small
+                id_equal = random.sample(list(np.where(dist_matrix == tie_dist)[0]), Knn - len(id_small))
+                id_equal = id_equal + (id_equal >= i)
+                nn_index_X[i, len(id_small):Knn] = id_equal
 
     return nn_index_X
