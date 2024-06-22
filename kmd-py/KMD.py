@@ -1,5 +1,6 @@
 import numpy as np
 from get_neighbors import get_neighbors
+from KMD_MST import KMD_MST
 
 def KMD(X, Y, M=None, Knn=1, Kernel="discrete"):
     if M is None:
