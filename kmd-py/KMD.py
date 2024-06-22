@@ -69,7 +69,6 @@ def KMD(X, Y, M=None, Knn=1, Kernel="discrete"):
     
         def node_calculator(j):
             return np.sum(Kernel[Y[j] - 1, Y[nn_index_X[j, :] - 1]])
-        return np.sum(Kernel[Y[j] - 1, Y[nn_index_X[j, :]] - 1])
     
     return (np.mean([node_calculator(j) for j in range(n)]) / Knn - U_stats) / (mean_Kii - U_stats)
 
