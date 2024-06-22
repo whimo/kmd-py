@@ -30,7 +30,7 @@ def KMD_MST(X, Y, M, discrete_kernel, Kernel, n_i):
         mst = graph.spanning_tree(weights=graph.es["weight"])
         edges = np.array(mst.get_edgelist())
     else:
-        result = mlpack.emst(input=X)
+        result = mlpack.emst(X)
         edges = result["output"][:, :2].astype(int)
 
     tmp = np.zeros((n, 2))
