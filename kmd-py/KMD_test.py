@@ -93,7 +93,7 @@ def KMD_test(X, Y, M=None, Knn=None, Kernel="discrete", Permutation=True, B=500)
         from sklearn.utils import resample
         b = [Perm_stat(Y, resample(np.arange(n))) for _ in range(B)]
         b_t0 = Perm_stat(Y, np.arange(n))
-        return (np.sum(np.array(b) >= b_t0) + 1) / (B + 1)
+        return (np.sum(np.array(b) >= b_t0) + 1) / (B + 1), b_t0
 
     if n < 4:
         raise ValueError("At least 4 observations are needed for the asymptotic test.")

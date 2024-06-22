@@ -16,7 +16,7 @@ X = np.vstack((X1, X2, X3))
 Y = np.array([1] * 100 + [2] * 100 + [3] * 100)
 
 # Call the Python function
-KMD_test_py_result = KMD_test(X, Y, M=3, Knn=1, Kernel="discrete")
+KMD_test_py_result, b_t0 = KMD_test(X, Y, M=3, Knn=1, Kernel="discrete")
 
 # Call the R function
 KMD_test_r = r["KMD_test"]
